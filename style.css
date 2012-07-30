@@ -25,32 +25,21 @@ a:active {
 #backgroundContainer {
 	width: 100%;
 	height: 100%;
-	position: absolute;
+	position: fixed;
+	top: 0;
+	left: 0;
 	overflow: hidden;
 	text-align: center;
-}
-
-#background {
-	width: 100%;
-	height: auto;
-	opacity: .7;
-	-webkit-transition: -webkit-filter 0.2s ease-in-out;
+	-webkit-transition: -webkit-filter 0.2s linear;
+	background: url(wallpaper.jpg) no-repeat center center;
+	-webkit-background-size: cover;
+	   -moz-background-size: cover;
+		 -o-background-size: cover;
+			background-size: cover;
 }
 
 .blur {
 	-webkit-filter: blur(20px);
-}
-
-#inner {
-	width: 728px;
-	min-height: 600px;
-	height: 100%;
-	padding: 0 20px;
-	display: block;
-	margin: 0;
-	left: 50%;
-	margin-left: -384px;
-	position: absolute;
 }
 
 #content {
@@ -61,14 +50,12 @@ a:active {
 	margin-top: -250px;
 }
 
-#appName {
-	position: absolute;
-	top: 18px;
-	font-size: 48px;
-	font-weight: normal;
-	font-style: normal;
-	text-shadow: #000 0 2px 4px;
-	display: inline-block;
+#main {
+	background-color: rgba(255,255,255,.1);
+	width: 320px;
+	max-width: 320px;
+	-webkit-transition: opacity 0.2s linear;
+	margin: auto;
 }
 
 #appIcon {
@@ -76,22 +63,31 @@ a:active {
 	top: 0;
 	left: 50%;
 	margin-left: -128px;
+	cursor: pointer;
 }
 
-#pageOneRest {
+#appName {
 	position: absolute;
-	margin: auto;
-	top: 256px;
-	left: 50%;
-	margin-left: -67px;
+	top: 238px;
+	font-size: 48px;
+	font-weight: normal;
+	font-style: normal;
+	text-shadow: #000 0 2px 4px;
+	text-align: center;
+	width: 320px;
 }
 
 #watchVideo {
 	position: absolute;
-	top: 48px;
 	width: 134px;
-	height: 46px;
+	height: 34px;
 	background: url(watchVideoButton.png) no-repeat 0 0;
+	font-size: 14px;
+	top: 326px;
+	left: 50%;
+	margin-left: -67px;
+	padding-top: 12px;
+	cursor: pointer;
 }
 
 #watchVideo:hover {
@@ -100,6 +96,30 @@ a:active {
 
 #watchVideo:active {
 	background-position: 0 -92px;
+}
+
+#video {
+	position: relative;
+	padding: 69.95464853% 0 0 0;
+	height: 0;
+	display: none;
+	max-width: 882px;
+	margin: auto;
+	background: url(windowActive.png) no-repeat center center;
+	-webkit-background-size: cover;
+	   -moz-background-size: cover;
+		 -o-background-size: cover;
+			background-size: cover;
+			background-color: rgba(255,0,0,.5);
+}
+
+#videoSrc {
+	position: absolute;
+	top: 35px;
+	bottom: 79px;
+	right: 57px;
+	left: 57px;
+	background-color: rgba(255,255,255,.5);
 }
 
 #description {
@@ -124,7 +144,7 @@ a:active {
 
 @media all and (-webkit-min-device-pixel-ratio: 2) {
 	#watchVideo {
-		background-image: url(watchVideoButton-2x.png);
+		background-image: url(watchVideoButton-2x.png) center center;
 		background-size: 134px 138px;
 	}
 }
