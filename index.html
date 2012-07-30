@@ -1,0 +1,53 @@
+<html>
+<head>
+	<title>Sonar.app</title>
+	<link rel="stylesheet" href="style.css" media="screen">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=yes">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+	<script language="javascript">
+		function launchApp() {
+			var background = document.getElementById("background");
+			if ( background.className == "blur" ) {
+				background.className = "";
+				$("#appIcon").animate({opacity: '0', height: '500px', width: '500px', marginLeft: '-256px', top: '-122px' }, 400, 'linear');
+				$("#pageOneRest").animate({opacity: '0'}, 200, 'linear');
+//				$("#appName").animate({fontSize: '45px', marginLeft: '5px'}, 400, 'linear');
+//				$("watchVideo").animate({backgroundSize: '126px 129px'}, 400, 'linear');
+			} else {
+				background.className = "blur";
+				$("#appIcon").animate({opacity: '1.0', height: '256px', width: '256px', marginLeft: '-128px', top: '0px' }, 400, 'linear');
+				$("#pageOneRest").animate({opacity: '1.0'}, 200, 'linear');
+			}
+		}
+	</script>
+</head>
+<body>
+<div id="backgroundContainer">
+<img src="wallpaper.jpg" id="background" class="blur" />
+</div>
+<div id="inner">
+	<div id="content">
+		<div class="page" id="1">
+			<a href="#" onclick="launchApp();"><img id="appIcon" src="appIcon.png" width="256" height="256" alt="Sonar.app" border="0"></a>
+			<div id="pageOneRest">
+				<span id="appName">Sonar</h1>
+				<a href="#"><div id="watchVideo"></div></a>
+			</div>
+		</div>
+		
+		<div class="page" id="2">
+		</div>
+		
+		<div class="page" id="3">
+		</div>
+		
+		<div id="description">Sonar is an open-source native Mac application that interfaces with Apple's <a href="http://fixradarorgtfo.com/">infamous</a> <a href="http://bugreport.apple.com/">bug reporter</a></div>
+		
+		<span id="copyright">(c) Matt Zanchelli 2012</span>
+	</div>
+</div>
+</body>
+<!-- For displaying retina (-2x) images -->
+<script src="jquery.retina.js" type="text/javascript"></script>
+<script type="text/javascript">$(document).ready(function(){ $('img').retina();});</script>
+</html>
