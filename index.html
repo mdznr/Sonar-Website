@@ -3,15 +3,28 @@
 	<title>Sonar.app</title>
 	<link rel="stylesheet" href="style.css" media="screen">
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=yes">
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
 	<script language="javascript">
+		
+		function getSizeForVideo()
+		{
+			if ( window.innerWidth < 768 ) {
+				var newWidth = window.innerWidth - 40;
+				document.getElementById("videoSrc").style.width = newWidth;
+			    document.getElementById("videoSrc").style.height = newWidth * (484/768);
+			    document.getElementById("video").style.top = ( 484 - (newWidth * (484/768)) ) / 2;
+		    }
+		}
+	
+		window.onresize = getSizeForVideo;
+	
 		function launchApp() {
 			var background = document.getElementById("backgroundContainer");
 			if ( background.className == "blur" ) {		// Launch
 				background.className = "";
 				$("#appIcon").animate({opacity: '0', height: '500px', width: '500px', marginLeft: '-256px', top: '-122px' }, 400, 'linear');
 				$("#main").fadeOut(300);
-				$("#video").delay(350).fadeIn(50);
+				$("#video").delay(400).fadeIn(150);
 			}
 			else {										// Unlaunch
 				background.className = "blur";
@@ -20,9 +33,10 @@
 				$("#video").fadeOut(200);
 			}
 		}
+		
 	</script>
 </head>
-<body onload="setTimeout(function() {launchApp();}, 2000);">
+<body onload="getSizeForVideo();">
 	<div id="backgroundContainer" class="blur"></div>
 	<div id="content">
 		<div id="main" onclick="launchApp();">
@@ -33,7 +47,7 @@
 		</div>
 		
 		<div id="video">
-<!-- 		<div id="videoSrc"></div> -->
+			<iframe id="videoSrc" src="http://player.vimeo.com/video/35396305?color=000000" width="768" height="484" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 		</div>
 		
 		<span id="copyright">&#169; Matt Zanchelli 2012</span>
