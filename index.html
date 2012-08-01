@@ -5,53 +5,80 @@
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=yes">
 	<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
 	<script language="javascript">
+	
+		var buttonBottom = "24px";
+		
+		var launched = false;
 		
 		function getSizeForVideo()
 		{
 			if ( window.innerWidth < 768 ) {
 				var newWidth = window.innerWidth - 40;
-				document.getElementById("videoSrc").style.width = newWidth;
-			    document.getElementById("videoSrc").style.height = newWidth * (484/768);
-			    document.getElementById("video").style.top = ( 484 - (newWidth * (484/768)) ) / 2;
+				document.getElementById("video").style.width = newWidth;
+			    document.getElementById("video").style.height = newWidth * (460/768);
+			    document.getElementById("video").style.top = ( 460 - (newWidth * (460/768)) ) / 2;
+			    document.getElementById("video").style.left = "20px";
+			    buttonBottom = 24 + (( 460 - (newWidth * (460/768))) / 2 ) + "px";
+			    if ( launched ) {
+				    document.getElementById("watchVideo").style.bottom = buttonBottom;
+				    document.getElementById("downloadApp").style.bottom = buttonBottom;
+			    }
 		    }
 		}
 	
 		window.onresize = getSizeForVideo;
+		
+		function playVideo() {
+			if ( background.className == "blur" ) {
+				launchApp();
+			}
+			// ** play video **
+
+		}
 	
 		function launchApp() {
 			var background = document.getElementById("backgroundContainer");
-			if ( background.className == "blur" ) {		// Launch
+			if ( !launched ) {		// Launch
 				background.className = "";
-				$("#appIcon").animate({opacity: '0', height: '500px', width: '500px', marginLeft: '-256px', top: '-122px' }, 400, 'linear');
+				$("#appIcon").animate({opacity: '0', height: '500px', width: '500px', marginLeft: '-256px', top: '-96px' }, 400, 'linear');
 				$("#main").fadeOut(300);
+				$("#watchVideo").animate({bottom: buttonBottom}, 400);
+				document.getElementById("watchVideo").innerHTML = "Watch Again <img src=\"watch.png\" width=\"12px\" height=\"12px\">";
+				$("#downloadApp").animate({bottom: buttonBottom}, 400);
 				$("#video").delay(400).fadeIn(150);
+				launched = !launched;
 			}
 			else {										// Unlaunch
 				background.className = "blur";
 				$("#appIcon").animate({opacity: '1.0', height: '256px', width: '256px', marginLeft: '-128px', top: '0px' }, 400, 'linear');
 				$("#main").fadeIn(200);
+				$("#watchVideo").animate({bottom: '64px'}, 400);
+				$("#downloadApp").animate({bottom: '64px'}, 400);
 				$("#video").fadeOut(200);
+				launched = !launched;
 			}
 		}
 		
 	</script>
 </head>
 <body onload="getSizeForVideo();">
+<div id="one">
 	<div id="backgroundContainer" class="blur"></div>
 	<div id="content">
 		<div id="main" onclick="launchApp();">
 			<img id="appIcon" src="appIcon.png" width="256" height="256" alt="Sonar.app" border="0">
 			<h1 id="appName">Sonar</h1>
-			<div id="watchVideo">Watch Video</div>
-			<div id="description">Sonar is an open-source native Mac application that interfaces with Apple's <a href="http://fixradarorgtfo.com/">infamous</a> <a href="http://bugreport.apple.com/">bug reporter</a></div>
+			<div id="description">Sonar is a native Mac application that interfaces with Apple's <a href="http://fixradarorgtfo.com/">infamous</a> <a href="http://bugreport.apple.com/">bug reporter</a></div>
 		</div>
+		<img id="appIconDup" src="appIcon.png" width="256" height="256" alt="Sonar.app" border="0">
+	
+		<iframe id="video" src="http://player.vimeo.com/video/35396305?color=000000" width="768" height="460" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+
+		<div id="watchVideo" onclick="playVideo();" class="button">Watch Video <img src="watch.png" width="12px" height="12px"></div>	<div id="downloadApp" class="button">Download <img src="download.png" width="12px" height="12px"></div>
 		
-		<div id="video">
-			<iframe id="videoSrc" src="http://player.vimeo.com/video/35396305?color=000000" width="768" height="484" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-		</div>
-		
-		<span id="copyright">&#169; Matt Zanchelli 2012</span>
+		<span id="copyright"><a href="http://mdznr.com">&#169; Matt Zanchelli 2012</a></span>
 	</div>
+</div>
 </body>
 <!-- For displaying retina (-2x) images -->
 <script src="jquery.retina.js" type="text/javascript"></script>
