@@ -1,13 +1,29 @@
-* { margin: 0; padding: 0px; }
+/* reset.css */
+*{margin:0;padding:0;border:0;}
+/*
+html {margin:0;padding:0;border:0;}
+body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, dialog, figure, footer, header, hgroup, nav, section {margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
+article, aside, details, figcaption, figure, dialog, footer, header, hgroup, menu, nav, section {display:block;}
+body {line-height:1.5;}
+table {border-collapse:separate;border-spacing:0;}
+caption, th, td {text-align:left;font-weight:normal;float:none !important;}
+table, th, td {vertical-align:middle;}
+blockquote:before, blockquote:after, q:before, q:after {content:'';}
+blockquote, q {quotes:"" "";}
+a img {border:none;}
+:focus {outline:0;}
+*/
 
-body {
+html {
 	background: #000;
+	-webkit-tap-highlight-color:transparent;
 	color: #fff;
 	font: 14px/18px "Lucida Grande", Lucida, Verdana, sans-serif;
+}
+
+body {
 	text-align: center;
-	margin: 0;
-	min-width: 400px;
-	-webkit-font-smoothing: antialiased;
+	min-width: 320px;
 }
 
 a, a:visited {
@@ -18,16 +34,11 @@ a, a:visited {
 a:hover {
 	color: #fff;
 	text-decoration: none;
-	text-shadow: #000 0 1px 5px;
+	text-shadow: 0 1px 3px #000;
 }
 
 a:active {
 	color: #cbcbcb;
-}
-
-#one {
-	width: 100%;
-	height: 100%;
 }
 
 #backgroundContainer {
@@ -38,152 +49,180 @@ a:active {
 	left: 0;
 	overflow: hidden;
 	text-align: center;
-	-webkit-transition: -webkit-filter 0.2s linear;
+	-webkit-transition: -webkit-filter 0.3s linear;
 	background: url(wallpaper.jpg) no-repeat center center;
 	-webkit-background-size: cover;
 	   -moz-background-size: cover;
 		 -o-background-size: cover;
 			background-size: cover;
-}
-
-#content {
-	margin: auto;
-	position: relative;
-	top: 50%;
-	height: 550px;
-	margin-top: -270px;
-	width: 100%;
-	max-width: 756px;
+	z-index: -1;
 }
 
 .blur {
 	-webkit-filter: blur(20px);
 }
 
-#main {
-	background-color: rgba(255,255,255,.1);
-	width: 320px;
-	max-width: 320px;
-	-webkit-transition: opacity 0.2s linear;
+#content {
+//	background-color: rgba(255,0,0,.1);
 	margin: auto;
+	position: relative;
+	margin: auto;
+	top: 50%;
+	height: 462px;
+	margin-top: -231px;
+	width: 100%;
+	max-width: 756px;
 }
 
-#appIcon {
-	position: absolute;
-	top: 48px;
-	left: 50%;
-	margin-left: -128px;
+#main {
+//	background-color: rgba(255,255,255,.1);
+	width: 320px;
+	max-width: 320px;
+	-webkit-transition: opacity .3s linear;
+	position: relative;
+	margin: auto;
+	margin-top: -16px;
+	text-align: center;
+}
+
+#appIcon, #appIconDup {
 	cursor: pointer;
+	margin: 16px 32px;
+	width: 256px;
+	height: 256px;
+	display: block;
 }
 
 #appIconDup {
 	position: absolute;
-	top: 48px;
-	left: 50%;
-	margin-left: -128px;
-	cursor: pointer;
-	z-index: -1;
+	top: 0;
 }
 
 #appName {
-	position: absolute;
-	top: 312px;
+	margin-top: 20px;
 	font-size: 48px;
 	font-weight: normal;
 	font-style: normal;
-	text-shadow: rgba(0,0,0,0.75) 0 2px 4px;
-	text-align: center;
-	width: 320px;
+	text-shadow: 0 2px 4px rgba(0,0,0,0.75);
 }
 
-#watchVideo {
-	position: absolute;
-	bottom: 64px;
-	left: 50%;
-	margin-left: -152px;
-	width: 141px;
-	height: 35px;
-	background: url(buttons.png) no-repeat 0 0;
+#appDescription {
+	margin-top: 32px;
 	font-size: 14px;
-	padding-top: 12px;
+	text-shadow: 0 1px 1px #000;
+}
+
+/* Buttons */
+
+#buttons {
+	padding: 16px 0;
+}
+
+.button {
+	background: url(buttonfill.png) repeat-x 0 0;
+	color: #000;
+	height: 40px;
+	font-size: 14px;
+	line-height: 40px;
+	vertical-align: top;
 	cursor: pointer;
 	text-align: center;
-	padding-left: 3px;
+	display: inline-block;
+	text-shadow: #fff 0 1px 1px;
+	overflow: hidden;
+	margin: 0 25px;
 }
 
-#watchVideo:hover {
-	background-position: 0 -46px;
-}
-
-#watchVideo:active {
-	background-position: 0 -92px;
-}
-
-#downloadApp {
-	position: absolute;
-	bottom: 64px;
-	left: 50%;
-	margin-left: 19px;
-	width: 123px;
-	height: 35px;
-	background: url(buttons.png) no-repeat -144px 0;
-	font-size: 14px;
-	padding-top: 12px;
+.button:before {
+	content: "";
+	background: url(buttonleft.png);
 	cursor: pointer;
-	text-align: center;
-	padding-left: 3px;
-}
-
-#downloadApp:hover {
-	background-position: -144px -46px;
-}
-
-#downloadApp:active {
-	background-position: -144px -92px;
-}
-
-#video {
+	height: 40px;
+	width: 21px;
 	position: absolute;
+	margin-left: -21px;
+	display: inline-block;
+	font-size: 0;
+	line-height: 0;
+	overflow: hidden;
+}
+
+.button:after {
+	content: "";
+	background: url(buttonright.png);
+	cursor: pointer;
+	height: 40px;
+	width: 21px;
+	position: absolute;
+	margin-right: -21px;
+	display: inline-block;
+	font-size: 0;
+	line-height: 0;
+	overflow: hidden;
+}
+
+.button:hover,
+.button:hover:before,
+.button:hover:after {
+	background-position: 0 -40px;
+}
+
+.button:active,
+.button:active:before,
+.button:active:after {
+	background-position: 0 -80px;
+}
+
+/* Video & Player */
+
+#videoContainer {
 	display: none;
-	width: 100%;
-	-webkit-border-radius: 4px;
-	   -moz-border-radius: 4px;
-			border-radius: 4px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	-webkit-border-radius: 3px;
+	   -moz-border-radius: 3px;
+			border-radius: 3px;
 	-webkit-box-shadow: 0px 28.5px 57px 0px #000;
 	   -moz-box-shadow: 0px 28.5px 57px 0px #000;
 			box-shadow: 0px 28.5px 57px 0px #000;
-	margin: auto;
-	text-align: center;
-	left: 0;
+	//		box-shadow: 0 1px 12px rgba(0,0,0,.75);
+
 }
 
-#description {
-	margin: auto;
-	width: 320px;
-	font-size: 14px;
-	text-shadow: rgba(0,0,0,0.5) 0 1px 1px;
-	position: absolute;
-	bottom: 145px;
-	left: 50%;
-	margin-left: -160px;
+#video {
+	-webkit-mask: url(mask.png);
+	-webkit-mask-size: 100% 100%;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	-webkit-border-radius: 3px;
+	   -moz-border-radius: 3px;
+			border-radius: 3px;
+	display: block;
+	/* Needs multiple shadows to recreate OS X's shadows */
 }
 
 #copyright {
 	font-size: 11px;
-	text-shadow: #000 0 1px 1px;
-	width: 100%;
+	text-shadow: 0 1px 1px #000;
 	text-align: center;
-	position: absolute;
-	bottom: 5px;
-	left: 0;
+	display: block;
+	padding-bottom: 10px;
 }
 
 @media all and (-webkit-min-device-pixel-ratio: 2) {
-	#watchVideo, #downloadApp {
-		background-image: url(buttons-2x.png);
-		background-size: 270px 138px;
-		padding-top: 11px;
-		height: 34px;
+	.button {
+		background-image: url(buttonfill-2x.png);
+		background-size: 1px 120px;
+	}
+	.button:before {
+		background-image: url(buttonleft-2x.png);
+		background-size: 21px 120px;
+	}
+	.button:after {
+		background-image: url(buttonright-2x.png);
+		background-size: 21px 120px;
 	}
 }
 

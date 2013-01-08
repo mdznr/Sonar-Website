@@ -1,84 +1,123 @@
 <html>
 <head>
-	<title>Sonar.app</title>
+	<title>Sonar.app: A Native Apple Bug Reporter</title>
+	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.8.0/build/cssreset/cssreset-min.css">
 	<link rel="stylesheet" href="style.css" media="screen">
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=yes">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 	<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
 	<script language="javascript">
+		
+		document.addEventListener("DOMContentLoaded", function()
+		{
+			// Would be nice to elimanate the need for this.
+			// Responsive centering maintaining aspect ratio?
+			
+			var container = document.getElementById("videoContainer");
+			var maxWidth = 728;		// 768px - 40px
+			var maxHeight = 510;
+			var minWidth = 300;
+			var minHeight = 210;
+			var sizeRatio = maxWidth / maxHeight;
+			var resizeVideo = function()
+			{	
+				var width;
+				var height;
+				var paddingSize = 20;
+				var availableWidth = window.innerWidth - ( 2 * paddingSize );
+				var availableHeight = window.innerHeight - ( 2 * paddingSize );
+				
+				// Maximum width and height fit within available space
+				if ( maxWidth < availableWidth && maxHeight < availableHeight )
+				{
+					width = maxWidth;
+					height = maxHeight;
+					console.log("first");
+				}
+				// The width doesn't fit
+				else if ( maxWidth > availableWidth )
+				{
+					width = availableWidth;
+					height = width / sizeRatio;
+					console.log("maxWidth > availableWidth");
+				}
+				// The height doesn't fit
+				else
+				{
+					height = availableHeight;
+					width = height * sizeRatio;
+					console.log("else");
+				}
+				
+				width = Math.max(width, minWidth);
+				height = Math.max(width / sizeRatio, minHeight);
+				width = sizeRatio * height;
+				
+				container.style.width = width + "px";
+				container.style.height = height + "px";
+				
+				/* Assumes using left: 50%; and right: 50%; on element */
+				container.style.margin = (-height/2) + "px 0 0 " + (-width/2) + "px";
+			};
+		
+			resizeVideo();
+			window.addEventListener("resize", resizeVideo);
+		});
 	
 		var buttonBottom = "24px";
-		
 		var launched = false;
 		
-		function getSizeForVideo()
+		function playVideo()
 		{
-			if ( window.innerWidth < 768 ) {
-				var newWidth = window.innerWidth - 40;
-				document.getElementById("video").style.width = newWidth;
-			    document.getElementById("video").style.height = newWidth * (460/768);
-			    document.getElementById("video").style.top = ( 460 - (newWidth * (460/768)) ) / 2;
-			    document.getElementById("video").style.left = "20px";
-			    buttonBottom = 24 + (( 460 - (newWidth * (460/768))) / 2 ) + "px";
-			    if ( launched ) {
-				    document.getElementById("watchVideo").style.bottom = buttonBottom;
-				    document.getElementById("downloadApp").style.bottom = buttonBottom;
-			    }
-		    }
-		}
-	
-		window.onresize = getSizeForVideo;
-		
-		function playVideo() {
-			if ( background.className == "blur" ) {
+			var background = document.getElementById("backgroundContainer");
+			if ( background.className == "blur" )
+			{
 				launchApp();
 			}
-			// ** play video **
-
+			// then start playback
 		}
 	
-		function launchApp() {
+		function launchApp()
+		{
 			var background = document.getElementById("backgroundContainer");
-			if ( !launched ) {		// Launch
+			// Launch app
+			if ( !launched )
+			{
 				background.className = "";
-				$("#appIcon").animate({opacity: '0', height: '500px', width: '500px', marginLeft: '-256px', top: '-96px' }, 400, 'linear');
-				$("#main").fadeOut(300);
-				$("#watchVideo").animate({bottom: buttonBottom}, 400);
-				document.getElementById("watchVideo").innerHTML = "Watch Again <img src=\"watch.png\" width=\"12px\" height=\"12px\">";
-				$("#downloadApp").animate({bottom: buttonBottom}, 400);
-				$("#video").delay(400).fadeIn(150);
-				launched = !launched;
+				$("#appIconDup").animate({opacity: '0', height: '512px', width: '512px', margin: '-112px -96px' }, 400, 'linear');
+				$("#main").fadeOut(400);
+				$("#videoContainer").delay(300).fadeIn(150);
 			}
-			else {										// Unlaunch
+			// Unlaunch app
+			else
+			{
 				background.className = "blur";
-				$("#appIcon").animate({opacity: '1.0', height: '256px', width: '256px', marginLeft: '-128px', top: '0px' }, 400, 'linear');
+				$("#appIconDup").animate({opacity: '1.0', height: '256px', width: '256px', margin: '16px 32px' }, 400, 'linear');
 				$("#main").fadeIn(200);
-				$("#watchVideo").animate({bottom: '64px'}, 400);
-				$("#downloadApp").animate({bottom: '64px'}, 400);
-				$("#video").fadeOut(200);
-				launched = !launched;
+				$("#videoContainer").fadeOut(200);
 			}
+			launched = !launched;
 		}
 		
 	</script>
 </head>
-<body onload="getSizeForVideo();">
-<div id="one">
-	<div id="backgroundContainer" class="blur"></div>
+<body>
 	<div id="content">
 		<div id="main" onclick="launchApp();">
-			<img id="appIcon" src="appIcon.png" width="256" height="256" alt="Sonar.app" border="0">
+			<div id="appIcon"></div>
 			<h1 id="appName">Sonar</h1>
-			<div id="description">Sonar is a native Mac application that interfaces with Apple's <a href="http://fixradarorgtfo.com/">infamous</a> <a href="http://bugreport.apple.com/">bug reporter</a></div>
+			<div id="appDescription">Sonar is a native Mac application for use with Apple's <a href="http://fixradarorgtfo.com/">infamous</a> <a href="http://bugreport.apple.com/">bug reporter</a></div>
+			<div id="buttons">
+				<span onclick="playVideo();" class="button">Watch Video <img src="watch.png" width="12px" height="12px"></span>	<span class="button">Download <img src="download.png" width="12px" height="12px"></span>
+			</div>
+			<img id="appIconDup" src="appIcon.png" width="256" height="256" alt="Sonar.app" border="0">
+			<span id="copyright"><a href="http://mdznr.com">&#169; Matt Zanchelli 2012</a></span>
 		</div>
-		<img id="appIconDup" src="appIcon.png" width="256" height="256" alt="Sonar.app" border="0">
 	
-		<iframe id="video" src="http://player.vimeo.com/video/35396305?color=000000" width="768" height="460" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-
-		<div id="watchVideo" onclick="playVideo();" class="button">Watch Video <img src="watch.png" width="12px" height="12px"></div>	<div id="downloadApp" class="button">Download <img src="download.png" width="12px" height="12px"></div>
-		
-		<span id="copyright"><a href="http://mdznr.com">&#169; Matt Zanchelli 2012</a></span>
+		<div id="videoContainer">
+			<iframe id="video" src="http://player.vimeo.com/video/35396305?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;api=1&amp;player_id=vimeo-player&amp;autoplay=0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+		</div>
 	</div>
-</div>
+	<div id="backgroundContainer" class="blur"></div>
 </body>
 <!-- For displaying retina (-2x) images -->
 <script src="jquery.retina.js" type="text/javascript"></script>
