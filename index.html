@@ -31,21 +31,18 @@
 				{
 					width = maxWidth;
 					height = maxHeight;
-					console.log("first");
-				}
-				// The width doesn't fit
-				else if ( maxWidth > availableWidth )
-				{
-					width = availableWidth;
-					height = width / sizeRatio;
-					console.log("maxWidth > availableWidth");
 				}
 				// The height doesn't fit
-				else
+				else if ( maxHeight > availableHeight )
 				{
 					height = availableHeight;
 					width = height * sizeRatio;
-					console.log("else");
+				}
+				// The width doesn't fit
+				else
+				{
+					width = availableWidth;
+					height = width / sizeRatio;
 				}
 				
 				width = Math.max(width, minWidth);
