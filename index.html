@@ -32,6 +32,12 @@
 					width = maxWidth;
 					height = maxHeight;
 				}
+				// Both height and width don't fit
+				else if ( maxHeight > availableHeight && maxWidth > availableWidth )
+				{
+					height = availableHeight;
+					width = availableWidth;
+				}
 				// The height doesn't fit
 				else if ( maxHeight > availableHeight )
 				{
